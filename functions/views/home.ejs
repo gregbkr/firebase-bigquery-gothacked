@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Got Hacked?</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="shortcut icon" href="media/favicon/favicon.ico" />
+    
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+
+    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+    <!-- <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script> -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+
+    <link rel='stylesheet' href='/css/style.css'>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class='navbar navbar-dark bg-dark fixed-top'>
+        <span class='navbar-brand mb-0 h1' id='navGotHacked'><i id='iconLock' class='material-icons'>no_encryption</i> GotHacked</span>
+        <form class='form-inline'>
+            <!-- <span class='navbar-brand mb-0 h1' id='user'><i id='iconUser' class='material-icons'>account_circle</i></span> -->
+            <span><i id='iconUser' class='material-icons'>account_circle</i></span><span class='navbar-brand mb-0 h1' id='user'></span>
+            <button class='btn btn-info mr-2 my-sm-0' data-toggle='modal' data-target='#modalLogin' type='button' id='buttonLogin'>Login</button>
+            <button class='btn btn-info mr-2 my-sm-0' data-toggle='modal' data-target='#modalSignup' type='button' id='buttonSignup'>Signup</button>
+            <button class='btn btn-info mr-2 my-sm-0' type='submit' id='buttonLogout' onclick='{logout()}'>Logout</button>
+        </form>
+    </nav>
+    <nav class='navbar navbar-dark bg-dark fixed-bottom'>
+        <span class='navbar-brand mx-auto' id='navProto'><i id='iconAndroid' class='material-icons'>android</i> Prototype v0.2</span>
+    </nav>
+
+    <div id='home'>
+
+        <!-- MODAL LOGIN-->
+        <div class='modal fade' id='modalLogin' tabindex='-1' role='dialog' aria-labelledby='modalLogin' aria-hidden='true'>
+            <div class='modal-dialog' role='document'>
+                <div class='modal-content'>
+                    <form action='#' method='GET' onsubmit='login(); return false;'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title' id='modalSigninLabel'>Authentification</h5>
+                            <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                              <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>
+                        <div class='modal-body'>
+                            <input type='email' class='form-control' id='loginEmail' name='loginEmail' aria-describedby='emailHelp' placeholder='Email'>
+                            <input type='password' class='form-control' id='loginPassword' name='loginPassword' placeholder='Password'>
+                        </div>
+                        <div class='modal-footer'>
+                            <button class='btn btn-info' type='sumit' value='Submit' data-dismiss='modal' onclick='{login()}'>Login</button>
+                            <button class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL SIGNUP-->
+        <div class='modal fade' id='modalSignup' tabindex='-1' role='dialog' aria-labelledby='modalSignup' aria-hidden='true'>
+            <div class='modal-dialog' role='document'>
+                <div class='modal-content'>
+                    <!-- <form action='#' method='GET' onsubmit='signup(); return false;'> -->
+                    <form>
+                        <div class='modal-header'>
+                            <h5 class='modal-title' id='modalSignupLabel'>New registration</h5>
+                            <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>
+                        <div class='modal-body'>
+                            <input type='email' class='form-control' id='signupEmail' name='signupEmail' placeholder='Email'>
+                            <input type='password' class='form-control' id='signupPassword' name='signupPassword' placeholder='Password'>
+                        </div>
+                        <div class='modal-footer'>
+                            <button class='btn btn-info' type='submit' value='Submit' data-dismiss='modal' onclick='{signup()}'>Signup & login</button>
+                            <button class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ALERT -->
+        <div id='alert'>
+            <div class='alert alert-danger alert-dismissible fade show' role='alert' id='alertLoginFailed'>
+                Login failed: wrong username or password !
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class='alert alert-danger alert-dismissible fade show' role='alert' id='alertSignupFailed'>
+                Signup failed: for some reasons...
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class='alert alert-info' role='alert' id='alertNotLogged'>
+                Please signup and login to access the search service !
+            </div>
+        </div>
+
+        <!-- TITLE -->
+        <div class='landing-text' id='landing-text'>
+            <i class='material-icons' style='font-size:48px;'>no_encryption</i>      
+            <h1>Got hacked?</h1>
+            <h2>Check in our public knowledge base if your credentials have been exposed.</h2>
+        </div>
+
+        <!-- FORM --> 
+        <div class='padding' id='app'>
+            <div class='container'>
+                <div class='row'>
+                    <!-- INPUT --> 
+                    <div class='col-sm-6'>
+                        <!-- <form action='https://us-central1-searchapp-7d623.cloudfunctions.net/app' method='POST'> -->
+                        <form action='/' method='POST'>
+                            <div class='form-group'>
+                                <label  for='email'>User to lookup</label>
+                                <input type='text' class='form-control' id='email' name='username' placeholder='...'>
+                                <small id='emailHelp' class='form-text text-muted'>Full (john_doe@gmail.com) or partial (john) email/login </small>
+                            </div>
+                            <button type='submit' class='btn btn-info'>Search</button>
+                        </form>  
+                    </div>
+                    <!-- RESULT --> 
+                    <div class='col-sm-6' text-center>
+                        <div class='search-output'>
+                            <p><%= nbResult %><span id='bold'><%= searchedData %></span></p>
+                        </div>
+                        <ul id='list-group'>
+                            <% for(var i=0; i<dbResult.length; i++) { %>
+                            <li class='list-group-item'>
+                                <%= dbResult[i].username +' : ' + dbResult[i].password %>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src='/__/firebase/6.1.1/firebase-app.js'></script>
+    <script src='/__/firebase/6.1.1/firebase-auth.js'></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#reserved-urls -->
+
+   <!-- Initialize Firebase -->
+   <script src='/__/firebase/init.js'></script>
+   <script src='js/firebaseAuth.js'></script>
+
+</body>
+</html>

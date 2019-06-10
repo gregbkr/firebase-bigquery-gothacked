@@ -1,0 +1,123 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+#home {
+    background: url("/media/white.jpg") no-repeat center center fixed; 
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+/*NAVBAR*/
+#iconLock {
+    font-size: 16px;
+    color: white;
+}
+
+#navGotHacked {
+    font-size: 16px;
+}
+
+#iconAndroid {
+    font-size: 15px;
+    color: white;
+}
+
+#navProto {
+    font-size: 16px;
+    align: right;
+}
+
+#link{
+    font-size: 16px;
+    text-decoration: underline;
+    text-align: center;
+}
+
+#iconUser {
+    font-size: 22px;
+    color: white;
+    position: relative;
+    top: 1px;
+    right: 10px;
+    display: none;
+}
+
+#user {
+    font-size: 14px;
+    color: white;
+    position: relative;
+    top: 0px;
+    right: 3px;
+}
+
+#buttonLogin, #buttonSignup, #buttonlogout {
+    display: none;
+}
+
+/*TITLE*/
+.alert {
+    text-align: center;
+    font-size: 90%;
+    font-weight: 750;  
+    font-style: italic;
+    display: none;
+}
+
+
+#alert {
+    margin-top: 70px; 
+}
+
+#alertLoginFailed {
+
+}
+
+.landing-text {
+    text-align: center;
+    margin-top: 90px;
+}
+
+.landing-text h1 {
+    font-size: 300%;
+    font-weight: 700;  
+}
+
+.landing-text h2 {
+    font-size: 120%;
+    font-weight: 500;  
+}
+
+/*SEARCH*/
+#app {
+    display: none;
+}
+
+.padding {
+    margin-top: 80px; 
+}
+
+.btn {
+    margin-bottom: 30px; 
+}
+
+/*RESULT*/
+.search-output {
+    font-style: italic
+}
+
+#bold {
+    font-size: 20px;
+    font-weight: 650;
+    color:#29B9D0;
+}
+
+.list-group-item {
+    font-size: 15px;
+    line-height: 9px;
+    margin-left:-30px;
+}

@@ -1,0 +1,10 @@
+hello@gmail.com:123
+hello123@hotmail.fr:pass
+Hello@go.com:true
+toto@:123wrong
+tot123@gmail.com:12356789
+go@gmail.com:altpom
+power123@hotmail.fr:france_paris
+india@go.com:true
+Bangkok@:_now@y998
+123noreturn@gmail.com:polite94
