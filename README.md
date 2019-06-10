@@ -38,6 +38,10 @@ Then you will be able to deploy locally and test the app with: `firebase serve -
 
 Deploy live on firebase: `firebase deploy --debug`
 
+## CI-CD
+- Get the token: `firebase login:ci`
+- Set gitlab-ci variable `firebase-ci-token`
+- Create the gitlab-ci
 
 
 ## Need to fix

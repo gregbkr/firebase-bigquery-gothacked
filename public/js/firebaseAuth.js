@@ -24,7 +24,6 @@ function login(){
 		.catch (function (error){
 			console.log(error)
 		 	document.getElementById("alertLoginFailed").setAttribute('style', 'display: block;')
-			// document.getElementById("alertNotLogged").setAttribute('style', 'display: block; margin-top: 10px;')
 		})
 }
 
@@ -47,6 +46,8 @@ function checkIfLoggedIn(){
 			document.getElementById("app").setAttribute('style', 'display: block;')
  			document.getElementById("alertNotLogged").setAttribute('style', 'display: none;')
 			document.getElementById("landing-text").setAttribute('style', 'margin-top: 90px;')
+			document.getElementById("alertSignupFailed").setAttribute('style', 'display: none;')
+		 	document.getElementById("alertLoginFailed").setAttribute('style', 'display: none;')
 		} else {
 			// No user is signed in.
 			console.log('User is logged OUT !')
