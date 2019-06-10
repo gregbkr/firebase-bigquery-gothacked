@@ -1,19 +1,19 @@
 # Gothacked?
 
-## Overview
+## Overview
 
-### Scope
+### Scope
 Simple webpage where you can search in a DB if you credentials have been compromised.
 
-### Tech
-- Firebase hosting
-- GCP bigquery to store the data
-- Nodejs express + javascript api function (firebase)
-- Firebase authentification
-- Bootstrap + css
+### Tech
+- Hosting: Firebase cloud
+- Front: nodejs express + bootstrap + css
+- Backend: Firebase functions
+- Authentification : Firebase auth
+- Database: GCP bigquery
 
-### Flow
-User -> nodejs -> logins via firebase-auth -> search data -> bigquery (GCP)
+### Flow
+User -> nodejs @firebase -> login via firebase-auth -> search data -> bigquery (GCP)
 
 
 ## Setup
