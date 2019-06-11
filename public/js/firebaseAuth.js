@@ -10,6 +10,7 @@ function signup(){
 			console.log(error)
 		 	document.getElementById("alertSignupFailed").setAttribute('style', 'display: block;')
 		})
+
 }
 
 function login(){

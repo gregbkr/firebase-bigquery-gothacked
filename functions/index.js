@@ -21,8 +21,9 @@ async function mybigquery (username){
     const bigqueryClient = new BigQuery();
 
     const query = `
-        SELECT * FROM gothacked.sample_data
+        SELECT * FROM gothacked.passwords_from_torrent
         WHERE username LIKE @username
+        LIMIT 50
         `
     const options = {
         query: query,

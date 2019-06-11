@@ -26,6 +26,10 @@ User -> nodejs @firebase -> login via firebase-auth -> search data -> bigquery (
 ### Bigquery setup
 - In firebase, link you project to bigquery: setting>integration
 - Go in GCP>your_firebase_project>bigquery and create a dataset in location default (US) with the data (sample or production one): new table from csv `/extra/sample_data/file1.txt`
+- For production, follow the [setup](https://blog.appsecco.com/using-google-cloud-platform-to-store-and-query-1-4-billion-usernames-and-passwords-6cac572f5a29). I used this command to download the torrent: 
+```
+aria2c --enable-dht=true "magnet:?xt=urn:btih:7ffbcd8cee06aba2ce6561688cf68ce2addca0a3&dn=BreachCompilation&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fglotorrents.pw%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337" -d /home/greg/aria2c/torrents
+```
 - to permit local test, create service account in GCP:`bigquery-user-for-local-test` with role: `bigquery data viewer + job user`, download json and run the command on your laptop:
 
 ```
@@ -34,19 +38,30 @@ export GOOGLE_APPLICATION_CREDENTIALS="/Users/greg/dev/cred/gothacked-99644-cfc5
 Then you will be able to deploy locally and test the app with: `firebase serve --debug`
 
 
-## Deploy
+## Deploy locally
 
-Deploy live on firebase: `firebase deploy --debug`
+- Setup bigquery service account:
+```
+export GOOGLE_APPLICATION_CREDENTIALS="/Users/greg/dev/cred/gothacked-99644-cfc5336913dd.json"
+```
+- Deploy live on firebase: `firebase serve --debug`
+- Visit page: http://localhot:5000
 
-## CI-CD
-- Get the token: `firebase login:ci`
-- Set gitlab-ci variable `firebase-ci-token`
-- Create the gitlab-ci
+
+## Deploy to firebase cloud hosting
+- Deploy live on firebase: `firebase deploy --debug`
+- Visit page: https://gothacked.satoshi.tech
 
 
-## Need to fix
+## Deploy via CI-CD
+- Just push code in master and it will get deployed!
 
-- Only logged can call POST
-- CI-CD
+## Next steps
+- Security in API: only logged user can call POST 
+- Load prod data + destroy VM (big costly SSD disk attached to it)
+- Log query history in a firestore DB
+- Validate email with email link
+- Phone number signin with sms code?
+- 
 
 

@@ -10,6 +10,7 @@ html, body {
     position: relative;
     width: 100%;
     background-size: cover;
+    margin-bottom:50px;
 }
 
 /*NAVBAR*/
@@ -107,7 +108,7 @@ html, body {
 
 /*RESULT*/
 .search-output {
-    font-style: italic
+    font-style: italic;
 }
 
 #bold {
