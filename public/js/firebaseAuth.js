@@ -1,56 +1,81 @@
 function signup(){
+    // Signup
     signupEmail = document.getElementById("signupEmail").value
     signupPassword = document.getElementById("signupPassword").value
 
-    firebase.auth().createUserWithEmailAndPassword(signupEmail, signupPassword)
-    	.then(() => {
-    		console.log('User has signed up - ' + signupEmail)
+    firebase.auth().createUserWithEmailAndPassword(signupEmail, signupPassword).then(() => {
+		console.log('User has signed up - ' + signupEmail)
+	    
+	    // Login
+	    login(signupEmail, signupPassword).then(function(){
+		
+			// Send email
+			sendVerifEmail()
 		})
-		.catch (function (error){
-			console.log(error)
-		 	document.getElementById("alertSignupFailed").setAttribute('style', 'display: block;')
-		})
-
+	}).catch (function (error){
+		window.alert(error)
+	})
 }
 
-function login(){
-    loginEmail = document.getElementById("loginEmail").value
-    loginPassword = document.getElementById("loginPassword").value
+function sendVerifEmail() {
+	var user = firebase.auth().currentUser;
+	user.sendEmailVerification().then(function() {
+		console.log(user.email + ' has received an email')
+		window.alert('Please check your mailbox and confirm your email: ' + user.email)
+	}).catch(function(error) {
+		window.alert(error)
+	});
+}
 
-    firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
-    	.then((cred) => {
-    		console.log(cred.user.email)
+async function login(email, password){    
+	if (email === undefined || email === null) {
+    	email = document.getElementById("loginEmail").value
+		password = document.getElementById("loginPassword").value
+	}
 
-		})
-		.catch (function (error){
-			console.log(error)
-		 	document.getElementById("alertLoginFailed").setAttribute('style', 'display: block;')
-		})
+    firebase.auth().signInWithEmailAndPassword(email, password).then((cred) => {
+		console.log(cred.user.email + ' has logged in with success')
+	}).catch (function (error){
+		window.alert(error)
+	})
 }
 
 function logout(){
     firebase.auth().signOut().then(() => {  
-    	console.log(cred.user.email);
+    	console.log(cred.user.email + ' has logged out with success');
 	})
 }
 
 function checkIfLoggedIn(){
 	firebase.auth().onAuthStateChanged(function(user){
 		if (user) {
-			// User is signed in.
-			console.log('User is logged in - ' + user.email)
-			document.getElementById('user').innerHTML = user.email;
-			document.getElementById("buttonLogin").setAttribute('style', 'display: none;')
-			document.getElementById("buttonSignup").setAttribute('style', 'display: none;')
-			document.getElementById("buttonLogout").setAttribute('style', 'display: block;')
-			document.getElementById("iconUser").setAttribute('style', 'display: block;')
-			document.getElementById("app").setAttribute('style', 'display: block;')
- 			document.getElementById("alertNotLogged").setAttribute('style', 'display: none;')
-			document.getElementById("landing-text").setAttribute('style', 'margin-top: 90px;')
-			document.getElementById("alertSignupFailed").setAttribute('style', 'display: none;')
-		 	document.getElementById("alertLoginFailed").setAttribute('style', 'display: none;')
+			if (!user.emailVerified){
+				// User is signed in but not verified
+				console.log(user.email + ' is logged in | verified:' + user.emailVerified)
+				document.getElementById('user').innerHTML = user.email;
+				document.getElementById("buttonLogin").setAttribute('style', 'display: none;')
+				document.getElementById("buttonSignup").setAttribute('style', 'display: none;')
+				document.getElementById("buttonLogout").setAttribute('style', 'display: block;')
+				document.getElementById("iconUser").setAttribute('style', 'display: block;')
+				document.getElementById("app").setAttribute('style', 'display: none;')
+				document.getElementById("alertNotLogged").setAttribute('style', 'display: none;')
+ 				document.getElementById("alertNotVerified").setAttribute('style', 'display: block;')
+ 				document.getElementById("landing-text").setAttribute('style', 'margin-top: 30px;')
+			} else {
+				// User is signed in and verified
+				console.log(user.email + ' is logged in | verified:' + user.emailVerified)
+				document.getElementById('user').innerHTML = user.email;
+				document.getElementById("buttonLogin").setAttribute('style', 'display: none;')
+				document.getElementById("buttonSignup").setAttribute('style', 'display: none;')
+				document.getElementById("buttonLogout").setAttribute('style', 'display: block;')
+				document.getElementById("iconUser").setAttribute('style', 'display: block;')
+				document.getElementById("app").setAttribute('style', 'display: block;')
+	 			document.getElementById("alertNotLogged").setAttribute('style', 'display: none;')
+	 			document.getElementById("alertNotVerified").setAttribute('style', 'display: none;')
+				document.getElementById("landing-text").setAttribute('style', 'margin-top: 90px;')
+			}
 		} else {
-			// No user is signed in.
+			// No user is signed in
 			console.log('User is logged OUT !')
 			document.getElementById("buttonLogin").setAttribute('style', 'display: block;')
 			document.getElementById("buttonSignup").setAttribute('style', 'display: block;')
@@ -59,13 +84,11 @@ function checkIfLoggedIn(){
 			document.getElementById("app").setAttribute('style', 'display: none;')
 			document.getElementById("alertNotLogged").setAttribute('style', 'display: block;')
 			document.getElementById("landing-text").setAttribute('style', 'margin-top: 30px;')
-			// document.getElementById("alertLoginFailed").setAttribute('style', 'display: block; margin-top: 70px;')
-			// document.getElementById("alertNotLogged").setAttribute('style', 'display: block; margin-top: 10px;')
-
 		}
 	})
 }
 
+// Refresh what's is visible on screen after page updates
 window.onload = function(){
 	checkIfLoggedIn()
 }
