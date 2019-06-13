@@ -1,4 +1,8 @@
+// FIREBASE
 const functions = require('firebase-functions')
+const admin = require('firebase-admin')
+admin.initializeApp(functions.config().firebase)
+
 const express = require('express')
 const engines = require('consolidate')
 const app = express()
@@ -16,20 +20,20 @@ app.use(bodyParser.json())
 // Import the Google Cloud client library
 const {BigQuery} = require('@google-cloud/bigquery')
 
-async function mybigquery (username){
+async function mybigquery (search){
     // Create a client
     const bigqueryClient = new BigQuery();
 
     const query = `
         SELECT * FROM gothacked.passwords_from_torrent
-        WHERE username LIKE @username
+        WHERE username LIKE @search
         LIMIT 50
         `
     const options = {
         query: query,
         // Location must match that of the dataset(s) referenced in the query.
         location: 'US',
-        params: {username: '%' + username + '%', min_word_count: 250},
+        params: {search: '%' + search + '%', min_word_count: 250},
     }
 
     // Run the query as a job
@@ -55,14 +59,26 @@ app.get('/', function(req, res) {
 })
 
 app.post('/', async function(req, res) {
-    var username = req.body.username
-    // console.log(username);
+    
+    // value to log in search-history
+    var search = req.body.search
+    var user = req.body.userTemp
+    var date = new Date(); 
+    var timestamp = date.getTime()
 
-    mybigquery(username).then(dbResult => {
+    console.log(user + ' | ' + search + ' | ' + timestamp)
+
+    admin.database().ref('/search-history').push().set({
+        user: user,
+        search: search,
+        timestamp: timestamp
+    })
+
+    mybigquery(search).then(dbResult => {
         // Render result to html page with vars
         res.render('home.ejs', { 
           nbResult: dbResult.length + ' result(s) [login : password] for user  ',
-          searchedData: '"' + username + '"',
+          searchedData: '"' + search + '"',
           dbResult: dbResult
         })
     })

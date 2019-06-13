@@ -73,6 +73,7 @@ function checkIfLoggedIn(){
 	 			document.getElementById("alertNotLogged").setAttribute('style', 'display: none;')
 	 			document.getElementById("alertNotVerified").setAttribute('style', 'display: none;')
 				document.getElementById("landing-text").setAttribute('style', 'margin-top: 90px;')
+				document.getElementById("userTemp").value = user.email
 			}
 		} else {
 			// No user is signed in

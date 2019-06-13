@@ -114,9 +114,10 @@
                         <!-- <form action='https://us-central1-searchapp-7d623.cloudfunctions.net/app' method='POST'> -->
                         <form action='/' method='POST'>
                             <div class='form-group'>
-                                <label  for='email'>User to lookup</label>
-                                <input type='text' class='form-control' id='email' name='username' placeholder='...'>
-                                <small id='emailHelp' class='form-text text-muted'>Full (john_doe@gmail.com) or partial (john) email/login </small>
+                                <label for='search'>User to lookup</label>
+                                <input type='text' class='form-control' id='search' name='search' placeholder='...'>
+                                <input type='text' id='userTemp' name='userTemp' placeholder='...' style='display: none;'>
+                                <small id='searchHelp' class='form-text text-muted'>Full (john_doe@gmail.com) or partial (john) email/login </small>
                             </div>
                             <button type='submit' class='btn btn-info'>Search</button>
                         </form>  
