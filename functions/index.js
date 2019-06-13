@@ -60,14 +60,15 @@ app.get('/', function(req, res) {
 
 app.post('/', async function(req, res) {
     
-    // value to log in search-history
+    // values to log in search-history
     var search = req.body.search
-    var user = req.body.userTemp
+    var user = req.body.userTemp // <-- hack: I could not find how to simple retrieve user cred
     var date = new Date(); 
     var timestamp = date.getTime()
 
     console.log(user + ' | ' + search + ' | ' + timestamp)
 
+    // Log in search-history in firebase realtime DB
     admin.database().ref('/search-history').push().set({
         user: user,
         search: search,

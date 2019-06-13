@@ -57,10 +57,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/Users/greg/dev/cred/gothacked-99644-cfc5
 - Just push code in master and it will get deployed!
 
 ## Next steps
-- Validate email with email link
-- Phone number signin with sms code?
 - Security in API: only logged user can call POST 
-- Log query history in a firestore DB
-- 
+- Make DB accessible by auth user only!
 
 
