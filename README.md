@@ -60,4 +60,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/Users/greg/dev/cred/gothacked-99644-cfc5
 - Security in API: only logged user can call POST 
 - Make DB accessible by auth user only!
 
-
+Manual CURL
+```
+curl -d "search=batman&userTemp=curl_test@gmail.com" -H "Content-Type: application/x-www-form-urlencoded" -X POST https://gothacked.satoshi.tech/
+``

@@ -27,7 +27,7 @@ async function mybigquery (search){
     const query = `
         SELECT * FROM gothacked.passwords_from_torrent
         WHERE username LIKE @search
-        LIMIT 50
+        LIMIT 100
         `
     const options = {
         query: query,
