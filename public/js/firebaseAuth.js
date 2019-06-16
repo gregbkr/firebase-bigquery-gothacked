@@ -1,3 +1,33 @@
+
+
+function mySearch() {
+	// var searchApp = firebase.functions().httpsCallable('searchApp')
+	// searchApp({ search: 'batman' }).then(result => {
+	// 	console.log(result)	
+	// })
+
+	const someFunction = firebase.functions().httpsCallable("someFunction");
+	someFunction({  email: "test@test.com"  })
+	.then(result => {
+	  console.log("someFunction response: ", result.data);
+	}).catch(error => {
+	   console.log("error",error);
+	});
+
+	// console.log('hello')
+	// const hello = firebase.functions().httpsCallable('helloWorld')
+	// hello({})
+	// console.log('hello END')	
+	
+	// var addMessage = firebase.functions().httpsCallable('addMessage');
+	// addMessage({text: 'messageText'}).then(function(result) {
+	//   // Read result of the Cloud Function.
+	//   console.log=result.data.text;
+	//   // ...
+	// });
+
+}
+
 function signup(){
     // Signup
     signupEmail = document.getElementById("signupEmail").value

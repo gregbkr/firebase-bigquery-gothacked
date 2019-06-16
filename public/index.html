@@ -100,6 +100,8 @@
             <i class='material-icons' style='font-size:48px;'>no_encryption</i>      
             <h1>Got hacked?</h1>
             <h2>Check in our public knowledge base if your credentials have been exposed.</h2>
+            <button class='btn btn-info' type='submit' value='run' onclick='{mySearch()}'>run</button>
+            <input type='text' class='form-control' id='output' name='output' placeholder='...'>
         </div>
 
         <!-- FORM --> 
@@ -116,7 +118,7 @@
                                 <small id='searchHelp' class='form-text text-muted'>Full (john_doe@gmail.com) or partial (john) email/login </small>
                             </div>
                             <button type='submit' class='btn btn-info'>Search</button>
-                        </form>  
+                        </form>
                     </div>
                     <!-- RESULT --> 
                     <div class='col-sm-6' text-center>
@@ -140,6 +142,7 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src='/__/firebase/6.1.1/firebase-app.js'></script>
     <script src='/__/firebase/6.1.1/firebase-auth.js'></script>
+    <script src='/__/firebase/6.1.1/firebase-functions.js'></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use
        https://firebase.google.com/docs/web/setup#reserved-urls -->
 
