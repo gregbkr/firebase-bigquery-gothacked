@@ -8,11 +8,20 @@ cache:
     - node_modules/     
   key: "$CI_BUILD_REPO" 
 
+deploy-dev:
+  stage: deploy
+  only:
+    - develop
+  script:
+    - npm install --prefix ./functions
+    - firebase use gothacked-dev --token $FIREBASE_TOKEN_DEV
+    - firebase deploy -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN_DEV
+
 deploy-prod:
   stage: deploy
   only:
     - master
   script:
     - npm install --prefix ./functions
-    - firebase use gothacked-99644 --token $FIREBASE_TOKEN
-    - firebase deploy -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN
+    - firebase use gothacked-99644 --token $FIREBASE_TOKEN_PROD
+    - firebase deploy -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN_PROD

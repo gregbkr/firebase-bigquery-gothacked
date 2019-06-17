@@ -40,10 +40,12 @@ Then you will be able to deploy locally and test the app with: `firebase serve -
 
 ## Deploy locally
 
+- Locally, always use `gothacked-dev` project and dev service account as doing search in bigquery of 42GB cost 0.2$ each time...
 - Setup bigquery service account:
 ```
-export GOOGLE_APPLICATION_CREDENTIALS="/Users/greg/dev/cred/gothacked-99644-cfc5336913dd.json"
+export GOOGLE_APPLICATION_CREDENTIALS="/Users/greg/dev/cred/gothacked-dev-c5e73c343d5d.json"
 ```
+- Deploy live on firebase: `firebase use gothacked-dev`
 - Deploy live on firebase: `firebase serve --debug`
 - Visit page: http://localhot:5000
 
