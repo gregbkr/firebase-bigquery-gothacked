@@ -57,6 +57,8 @@ export GOOGLE_APPLICATION_CREDENTIALS="/Users/greg/dev/cred/gothacked-dev-c5e73c
 
 ## Deploy via CI-CD
 - Just push code in master and it will get deployed!
+- Setup tuto [here](https://medium.com/@rambabusaravanan/firebase-hosting-deployment-automation-with-gitlab-ci-f3fad9130d62)
+
 
 ## Next steps
 - Security in API: only logged user can call POST 
