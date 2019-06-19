@@ -100,8 +100,6 @@
             <i class='material-icons' style='font-size:48px;'>no_encryption</i>      
             <h1>Got hacked?</h1>
             <h2>Check in our public knowledge base if your credentials have been exposed.</h2>
-            <button class='btn btn-info' type='submit' value='run' onclick='{mySearch()}'>run</button>
-            <input type='text' class='form-control' id='output' name='output' placeholder='...'>
         </div>
 
         <!-- FORM --> 
@@ -110,45 +108,42 @@
                 <div class='row'>
                     <!-- INPUT --> 
                     <div class='col-sm-6'>
-                        <form action='/' method='POST'>
-                            <div class='form-group'>
-                                <label for='search'>User to lookup</label>
-                                <input type='text' class='form-control' id='search' name='search' placeholder='...'>
-                                <input type='text' id='userTemp' name='userTemp' placeholder='...' style='display: none;'>
-                                <small id='searchHelp' class='form-text text-muted'>Full (john_doe@gmail.com) or partial (john) email/login </small>
-                            </div>
-                            <button type='submit' class='btn btn-info'>Search</button>
-                        </form>
+                        <div class='form-group'>
+                            <label for='search'>User to lookup</label>
+                            <input type='text' class='form-control' id='search' name='search' placeholder='...'>
+                            <small id='searchHelp' class='form-text text-muted'>Full (john_doe@gmail.com) or partial (john) email/login </small>
+                        </div>
+                        <button type='submit' class='btn btn-info' value='run' onclick='{mySearch()}'>Search</button>
                     </div>
                     <!-- RESULT --> 
                     <div class='col-sm-6' text-center>
-                        <div class='search-output'>
-                            <p><%= nbResult %><span id='bold'><%= searchedData %></span></p>
+                        <div class="SameLine">
+                            <p id=nbResult>10 result for user</p>
+                            <p id=searchedData>gmail</p>
                         </div>
-                        <ul id='list-group'>
-                            <% for(var i=0; i<dbResult.length; i++) { %>
-                            <li class='list-group-item'>
-                                <%= dbResult[i].username +' : ' + dbResult[i].password %>
-                            </li>
-                            <% } %>
-                        </ul>
+                        <div class='container' id=list>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src='/__/firebase/6.1.1/firebase-app.js'></script>
     <script src='/__/firebase/6.1.1/firebase-auth.js'></script>
     <script src='/__/firebase/6.1.1/firebase-functions.js'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <!-- TODO: Add SDKs for Firebase products that you want to use
        https://firebase.google.com/docs/web/setup#reserved-urls -->
 
    <!-- Initialize Firebase -->
    <script src='/__/firebase/init.js'></script>
    <script src='js/firebaseAuth.js'></script>
+    <script>
+        firebase.functions().useFunctionsEmulator('http://localhost:5001')
+    </script> 
 
 </body>
 </html>

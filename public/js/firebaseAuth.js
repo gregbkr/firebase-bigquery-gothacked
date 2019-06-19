@@ -1,30 +1,38 @@
 
 
 function mySearch() {
-	// var searchApp = firebase.functions().httpsCallable('searchApp')
-	// searchApp({ search: 'batman' }).then(result => {
-	// 	console.log(result)	
-	// })
 
-	const someFunction = firebase.functions().httpsCallable("someFunction");
-	someFunction({  email: "test@test.com"  })
-	.then(result => {
-	  console.log("someFunction response: ", result.data);
-	}).catch(error => {
-	   console.log("error",error);
+	// var dbResult = [ 
+	// 	{username: "hello@gmail.com", password: "123"},
+	// 	{username: "greg@gmail.com", password: "567"},
+	// 	{username: "alice@gmail.com", password: "789"},
+	// 	{username: "bob@gmail.com", password: "007"},
+	// ] 
+
+	const search = document.getElementById('search').value
+	console.log(search)
+
+	let searchDB = firebase.functions().httpsCallable('searchDB');
+	searchDB({search: search}).then((result) => {
+	  	// let sanitizedMessage = dbResult.data;
+	  	console.log(result.data.dbResult)
+		
+		var list = '<ul>'
+		result.data.dbResult.forEach(function(line) {
+		  	list += '<li class="list-group-item">'+ line.username +' : ' + line.password + '</li>';
+		}); 
+		list += '</ul>';
+		
+		// Display to page results
+		document.getElementById('nbResult').innerHTML =  result.data.dbResult.length + ' result(s) [login : password] for search  '
+		document.getElementById('searchedData').innerHTML = '"' + search + '"'
+		document.getElementById('list').innerHTML = list
+		document.getElementById("nbResult").setAttribute('style', 'display: block;')
+		document.getElementById("searchData").setAttribute('style', 'display: block;')
+
+	}).catch(err => {
+	    console.log(err);
 	});
-
-	// console.log('hello')
-	// const hello = firebase.functions().httpsCallable('helloWorld')
-	// hello({})
-	// console.log('hello END')	
-	
-	// var addMessage = firebase.functions().httpsCallable('addMessage');
-	// addMessage({text: 'messageText'}).then(function(result) {
-	//   // Read result of the Cloud Function.
-	//   console.log=result.data.text;
-	//   // ...
-	// });
 
 }
 
@@ -103,7 +111,6 @@ function checkIfLoggedIn(){
 	 			document.getElementById("alertNotLogged").setAttribute('style', 'display: none;')
 	 			document.getElementById("alertNotVerified").setAttribute('style', 'display: none;')
 				document.getElementById("landing-text").setAttribute('style', 'margin-top: 90px;')
-				document.getElementById("userTemp").value = user.email
 			}
 		} else {
 			// No user is signed in

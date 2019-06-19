@@ -107,17 +107,25 @@ html, body {
 }
 
 /*RESULT*/
-.search-output {
+.SameLine {
     font-style: italic;
 }
 
-#bold {
+#nbResult {
+    display:inline-block;
+    display: none;
+}
+
+#searchedData {
+    display:inline-block;
+    margin-left: 10px;
     font-size: 20px;
     font-weight: 650;
     color:#29B9D0;
+    display: none;
 }
 
-.list-group-item {
+#list {
     font-size: 15px;
     line-height: 9px;
     margin-left:-30px;
