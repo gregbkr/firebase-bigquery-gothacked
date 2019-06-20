@@ -106,18 +106,23 @@ html, body {
     margin-bottom: 30px; 
 }
 
+#searchHelp {
+    margin-top: -28px;
+}
+
 /*RESULT*/
 .SameLine {
     font-style: italic;
+    display: inline-block;
 }
 
 #nbResult {
-    display:inline-block;
+    display: inline-block;
     display: none;
 }
 
 #searchedData {
-    display:inline-block;
+    display: inline-block;
     margin-left: 10px;
     font-size: 20px;
     font-weight: 650;

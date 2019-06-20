@@ -1,21 +1,11 @@
 
 
 function mySearch() {
-
-	// var dbResult = [ 
-	// 	{username: "hello@gmail.com", password: "123"},
-	// 	{username: "greg@gmail.com", password: "567"},
-	// 	{username: "alice@gmail.com", password: "789"},
-	// 	{username: "bob@gmail.com", password: "007"},
-	// ] 
-
 	const search = document.getElementById('search').value
-	console.log(search)
 
 	let searchDB = firebase.functions().httpsCallable('searchDB');
 	searchDB({search: search}).then((result) => {
-	  	// let sanitizedMessage = dbResult.data;
-	  	console.log(result.data.dbResult)
+	  	// console.log(result.data.dbResult)
 		
 		var list = '<ul>'
 		result.data.dbResult.forEach(function(line) {
@@ -27,13 +17,11 @@ function mySearch() {
 		document.getElementById('nbResult').innerHTML =  result.data.dbResult.length + ' result(s) [login : password] for search  '
 		document.getElementById('searchedData').innerHTML = '"' + search + '"'
 		document.getElementById('list').innerHTML = list
-		document.getElementById("nbResult").setAttribute('style', 'display: block;')
-		document.getElementById("searchData").setAttribute('style', 'display: block;')
-
+		document.getElementById("nbResult").setAttribute('style', 'display: inline-block;')
+		document.getElementById("searchedData").setAttribute('style', 'display: inline-block;')
 	}).catch(err => {
 	    console.log(err);
 	});
-
 }
 
 function signup(){
@@ -87,7 +75,7 @@ function logout(){
 function checkIfLoggedIn(){
 	firebase.auth().onAuthStateChanged(function(user){
 		if (user) {
-			if (!user.emailVerified){
+			if (!user.emailVerified || user.email.indexOf('@finstack') < 0){
 				// User is signed in but not verified
 				console.log(user.email + ' is logged in | verified:' + user.emailVerified)
 				document.getElementById('user').innerHTML = user.email;
@@ -99,8 +87,9 @@ function checkIfLoggedIn(){
 				document.getElementById("alertNotLogged").setAttribute('style', 'display: none;')
  				document.getElementById("alertNotVerified").setAttribute('style', 'display: block;')
  				document.getElementById("landing-text").setAttribute('style', 'margin-top: 30px;')
+			
 			} else {
-				// User is signed in and verified
+				// User is signed in and verified AND is a finstack admin
 				console.log(user.email + ' is logged in | verified:' + user.emailVerified)
 				document.getElementById('user').innerHTML = user.email;
 				document.getElementById("buttonLogin").setAttribute('style', 'display: none;')
