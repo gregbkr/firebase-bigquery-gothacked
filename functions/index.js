@@ -48,43 +48,30 @@ async function mybigquery (search){
     return rows
 };
 
-app.get('/', function(req, res) {
-    console.log ('#################' + req.session)
-      
-    res.render('home.ejs', { 
-        nbResult: '',
-        searchedData: '',
-        dbResult: ''
-    })
+exports.searchDB = functions.https.onCall((data, context) => {
+
+	// Checking that the user is authenticated.
+	if (!context.auth) {
+	    // Throwing an HttpsError so that the client gets the error details.
+	    throw new functions.https.HttpsError('failed-precondition', 'The function must be called ' +
+	      'while authenticated.');
+	}
+
+	// Only admin Greg can run the search (because bigquery is expensive!!)
+	const email = context.auth.token.email || null
+
+	if (email.indexOf('@finstack') < 0 ) {
+		// Throwing an HttpsError so that the client gets the error details.
+	    throw new functions.https.HttpsError('failed-precondition', 'Only admins can run the search! Please ask some admin credential.');
+	    return {
+	    	error: 'Only admins can run the search! Please ask some admin credential'
+	    }
+	}
+
+    return mybigquery(data.search).then(dbResult => {
+        return {
+			dbResult
+		}
+    })	 
+
 })
-
-app.post('/', async function(req, res) {
-    
-    // values to log in search-history
-    var search = req.body.search
-    var user = req.body.userTemp // <-- hack: I could not find how to simple retrieve user cred
-    var date = new Date(); 
-    var timestamp = date.getTime()
-
-    console.log(user + ' | ' + search + ' | ' + timestamp)
-
-    // Log in search-history in firebase realtime DB
-    admin.database().ref('/search-history').push().set({
-        user: user,
-        search: search,
-        timestamp: timestamp
-    })
-
-    mybigquery(search).then(dbResult => {
-        // Render result to html page with vars
-        res.render('home.ejs', { 
-          nbResult: dbResult.length + ' result(s) [login : password] for user  ',
-          searchedData: '"' + search + '"',
-          dbResult: dbResult
-        })
-    })
-})
-
-exports.app = functions.https.onRequest(app)
-
-

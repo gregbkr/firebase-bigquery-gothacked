@@ -106,18 +106,31 @@ html, body {
     margin-bottom: 30px; 
 }
 
-/*RESULT*/
-.search-output {
-    font-style: italic;
+#searchHelp {
+    margin-top: -28px;
 }
 
-#bold {
+/*RESULT*/
+.SameLine {
+    font-style: italic;
+    display: inline-block;
+}
+
+#nbResult {
+    display: inline-block;
+    display: none;
+}
+
+#searchedData {
+    display: inline-block;
+    margin-left: 10px;
     font-size: 20px;
     font-weight: 650;
     color:#29B9D0;
+    display: none;
 }
 
-.list-group-item {
+#list {
     font-size: 15px;
     line-height: 9px;
     margin-left:-30px;
