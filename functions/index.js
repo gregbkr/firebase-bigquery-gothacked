@@ -16,6 +16,7 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extend:true}))
 app.use(bodyParser.json())
 
+
 // BIGQUERY //
 // Import the Google Cloud client library
 const {BigQuery} = require('@google-cloud/bigquery')
@@ -48,6 +49,7 @@ async function mybigquery (search){
     return rows
 };
 
+
 exports.searchDB = functions.https.onCall((data, context) => {
 
 	// Checking that the user is authenticated.
@@ -67,6 +69,16 @@ exports.searchDB = functions.https.onCall((data, context) => {
 	    	error: 'Only admins can run the search! Please ask some admin credential'
 	    }
 	}
+
+    var date = new Date()
+    var timestamp = date.getTime()
+
+    // Log in search-history in firebase realtime DB
+    admin.database().ref('/search-history').push().set({
+        user: email,
+        search: data.search,
+        timestamp: timestamp
+    })
 
     return mybigquery(data.search).then(dbResult => {
         return {
