@@ -1,3 +1,29 @@
+
+
+function mySearch() {
+	const search = document.getElementById('search').value
+
+	let searchDB = firebase.functions().httpsCallable('searchDB');
+	searchDB({search: search}).then((result) => {
+	  	// console.log(result.data.dbResult)
+		
+		var list = '<ul>'
+		result.data.dbResult.forEach(function(line) {
+		  	list += '<li class="list-group-item">'+ line.username +' : ' + line.password + '</li>';
+		}); 
+		list += '</ul>';
+		
+		// Display to page results
+		document.getElementById('nbResult').innerHTML =  result.data.dbResult.length + ' result(s) [login : password] for search  '
+		document.getElementById('searchedData').innerHTML = '"' + search + '"'
+		document.getElementById('list').innerHTML = list
+		document.getElementById("nbResult").setAttribute('style', 'display: inline-block;')
+		document.getElementById("searchedData").setAttribute('style', 'display: inline-block;')
+	}).catch(err => {
+	    console.log(err);
+	});
+}
+
 function signup(){
     // Signup
     signupEmail = document.getElementById("signupEmail").value
@@ -49,7 +75,7 @@ function logout(){
 function checkIfLoggedIn(){
 	firebase.auth().onAuthStateChanged(function(user){
 		if (user) {
-			if (!user.emailVerified){
+			if (!user.emailVerified || user.email.indexOf('@finstack') < 0){
 				// User is signed in but not verified
 				console.log(user.email + ' is logged in | verified:' + user.emailVerified)
 				document.getElementById('user').innerHTML = user.email;
@@ -61,8 +87,9 @@ function checkIfLoggedIn(){
 				document.getElementById("alertNotLogged").setAttribute('style', 'display: none;')
  				document.getElementById("alertNotVerified").setAttribute('style', 'display: block;')
  				document.getElementById("landing-text").setAttribute('style', 'margin-top: 30px;')
+			
 			} else {
-				// User is signed in and verified
+				// User is signed in and verified AND is a finstack admin
 				console.log(user.email + ' is logged in | verified:' + user.emailVerified)
 				document.getElementById('user').innerHTML = user.email;
 				document.getElementById("buttonLogin").setAttribute('style', 'display: none;')
@@ -73,7 +100,6 @@ function checkIfLoggedIn(){
 	 			document.getElementById("alertNotLogged").setAttribute('style', 'display: none;')
 	 			document.getElementById("alertNotVerified").setAttribute('style', 'display: none;')
 				document.getElementById("landing-text").setAttribute('style', 'margin-top: 90px;')
-				document.getElementById("userTemp").value = user.email
 			}
 		} else {
 			// No user is signed in
