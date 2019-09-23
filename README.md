@@ -1,6 +1,7 @@
 # Gothacked?
 
 ## Overview
+More info: you can find an overview of that setup on my blog: https://greg.satoshi.tech/firebase-bigquery-to-query-1-billion-leaked-passwords/
 
 ### Scope
 Simple webpage where you can search in a DB if you credentials have been compromised.
@@ -12,6 +13,8 @@ Simple webpage where you can search in a DB if you credentials have been comprom
 - Authentification : Firebase auth (email + password + activation link)
 - Database: GCP bigquery
 - Search log: realtime DB
+- Code + CICD: gitlab.com
+
 
 ### Flow
 User -> nodejs @firebase -> login via firebase-auth -> search data -> bigquery (GCP)
