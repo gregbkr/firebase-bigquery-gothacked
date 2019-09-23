@@ -4,11 +4,11 @@
 More info: you can find an overview of that setup on my [blog](https://greg.satoshi.tech/firebase-bigquery-to-query-1-billion-leaked-passwords/)
 
 ### Scope
-Simple webpage where you can search in a DB if you credentials have been compromised.
+Simple webpage where you can search in a DB if your credentials have been compromised.
 
 ### Tech
 - Hosting: Firebase cloud
-- Front: html + bootstrap + css in firebase CDN
+- Front: simple html + bootstrap + css in firebase CDN
 - Backend: Firebase functions
 - Authentification : Firebase auth (email + password + activation link)
 - Database: GCP bigquery
@@ -23,7 +23,7 @@ User -> nodejs @firebase -> login via firebase-auth -> search data -> bigquery (
 ## Setup
 
 ### Setup firebase
-- Create a new project in firebase `gothack`, location default (US)
+- Create a new project in firebase `gothacked`, location default (US)
 - Activate auth (email + password)
 
 
@@ -34,7 +34,7 @@ User -> nodejs @firebase -> login via firebase-auth -> search data -> bigquery (
 ```
 aria2c --enable-dht=true "magnet:?xt=urn:btih:7ffbcd8cee06aba2ce6561688cf68ce2addca0a3&dn=BreachCompilation&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fglotorrents.pw%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337" -d /home/greg/aria2c/torrents
 ```
-- to permit local test, create service account in GCP:`bigquery-user-for-local-test` with role: `bigquery data viewer + job user + Cloud Filestore Editor (for writing Searchlogs in RealtimeDB)`, download json and run the command on your laptop:
+- To permit local test, create service account in GCP:`bigquery-user-for-local-test` with role: `bigquery data viewer + job user + Cloud Filestore Editor (for writing Searchlogs in RealtimeDB)`, download json and run the command on your laptop:
 
 ```
 export GOOGLE_APPLICATION_CREDENTIALS="/Users/greg/dev/cred/gothacked-dev-c5e73c343d5d.json"
