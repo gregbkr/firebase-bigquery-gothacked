@@ -1,7 +1,7 @@
 # Gothacked?
 
 ## Overview
-More info: you can find an overview of that setup on my blog: https://greg.satoshi.tech/firebase-bigquery-to-query-1-billion-leaked-passwords/
+More info: you can find an overview of that setup on my [blog](https://greg.satoshi.tech/firebase-bigquery-to-query-1-billion-leaked-passwords/)
 
 ### Scope
 Simple webpage where you can search in a DB if you credentials have been compromised.
@@ -13,7 +13,7 @@ Simple webpage where you can search in a DB if you credentials have been comprom
 - Authentification : Firebase auth (email + password + activation link)
 - Database: GCP bigquery
 - Search log: realtime DB
-- Code + CICD: gitlab.com
+- Code + CICD: gitlab.com (github is just a mirror)
 
 
 ### Flow
@@ -65,11 +65,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/Users/greg/dev/cred/gothacked-dev-c5e73c
 - Setup tuto [here](https://medium.com/@rambabusaravanan/firebase-hosting-deployment-automation-with-gitlab-ci-f3fad9130d62)
 
 
-## Next steps
-- Security in API: only logged user can call POST 
-- Make DB accessible by auth user only!
-
 Manual CURL
 ```
 curl -d "search=batman&userTemp=curl_test@gmail.com" -H "Content-Type: application/x-www-form-urlencoded" -X POST https://gothacked.satoshi.tech/
-``
+```
