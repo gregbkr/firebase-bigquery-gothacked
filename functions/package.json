@@ -21,7 +21,7 @@
     "firebase-admin": "^7.0.0",
     "firebase-functions": "^2.3.0",
     "handlebars": "^4.1.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.15.0"
   },
   "devDependencies": {
